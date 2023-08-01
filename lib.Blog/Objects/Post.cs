@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
-namespace MyBlogLibrary.Objects
+namespace lib.Blog.Objects
 {
 	public class Post
 	{
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = "This field is required")]
-		[MaxLength(100)]
 		[Column(TypeName = "varchar(100)")]
 		public string Title { get; set; }
 
@@ -19,8 +19,7 @@ namespace MyBlogLibrary.Objects
 		public string Text { get; set; }
 
 		[Required]
-		[MaxLength(100)]
-		[Column(TypeName = "varchar(100)")]
+		[Column(TypeName = "varchar(120)")]
 		public string UrlSlug { get; set; }
 
 		[Required]
@@ -30,22 +29,10 @@ namespace MyBlogLibrary.Objects
 		[DisplayName("Posted on")]
 		public DateTime PostedOn { get; set; }
 
-		[DisplayName("Modiefied on")]
-		public DateTime? Modiefied { get; set; }
+		[DisplayName("Modified on")]
+		public DateTime? Modified { get; set; }
 
-		public virtual ICollection<Tag> Tags { get; } = new List<Tag>();
-
-        public Post() { }
-        public Post(string title, string text, string urlSlug, bool published, 
-			DateTime postedOn, DateTime? modiefied, ICollection<Tag> tags)
-		{ 
-			Title = title;
-			Text = text;
-			UrlSlug = urlSlug;
-			Published = published;
-			PostedOn = postedOn;
-			Modiefied = modiefied;
-			Tags = tags;
-		}
+		[JsonIgnore]
+		public ICollection<Tag> Tags { get; } = new List<Tag>();
 	}
 }

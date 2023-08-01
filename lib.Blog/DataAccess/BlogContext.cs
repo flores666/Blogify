@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyBlogLibrary.Objects;
+﻿using lib.Blog.Objects;
+using Microsoft.EntityFrameworkCore;
 
-namespace MyBlogLibrary.DataAccess
+namespace lib.Blog.DataAccess
 {
 	public class BlogContext : DbContext
 	{
@@ -14,7 +14,8 @@ namespace MyBlogLibrary.DataAccess
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=YouBlog;Username=postgres;Password=str8shotx");
+			optionsBuilder.UseNpgsql(Data.CONN_STRING)
+				.UseSnakeCaseNamingConvention();
 		}
 	}
 }

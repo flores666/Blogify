@@ -1,7 +1,7 @@
 ﻿
 using System.Text;
 
-namespace MyBlogLibrary
+namespace lib.Extentions
 {
 	public static class Transliteration
 	{

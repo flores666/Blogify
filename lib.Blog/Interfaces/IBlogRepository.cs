@@ -1,18 +1,13 @@
-﻿using MyBlogLibrary.Objects;
+﻿using lib.Blog.Objects;
 
-namespace MyBlogLibrary.Interfaces
+namespace lib.Blog.Interfaces
 {
     public interface IBlogRepository
     {
-        public IList<Post> ShowLatestPosts(int pageNum, int pageSize);
-        public int NumberTotalPosts();
-
-        public IList<Post> ShowLatestPostsForTag(int pageNum, int pageSize, string tagSlug);
-        public int NumberTotalPostsForTag(string tagSlug);
-
-        public IList<Post> ShowLatestPostsForSearch(int pageNum, int pageSize, string search);
-        public int NumberTotalPostsForSearch(string search);
-
-        public Post ShowSinglePost(int id);
+        public List<Post> GetLatestPosts(int pageNum, int pageSize);
+        public int CountTotalPosts();
+        public List<Post> GetLatestPostsForTag(int pageNum, int pageSize, string tagSlug);
+        public List<Post> GetLatestPostsForSearch(int pageNum, int pageSize, string search);
+        public Post ShowPost(int id);
     }
 }

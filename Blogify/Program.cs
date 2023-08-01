@@ -1,7 +1,20 @@
+using lib.Blog;
+using lib.Blog.DataAccess;
+using lib.Blog.Interfaces;
+using lib.Blog.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<BlogContext>(options =>
+{
+    options.UseNpgsql(Data.CONN_STRING);
+});
+
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 var app = builder.Build();
 

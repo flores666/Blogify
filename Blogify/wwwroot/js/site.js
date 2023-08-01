@@ -1,4 +1,20 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function changeNavBarBackground() {
+    const header = document.querySelector('.header');
+    const navBar = document.getElementById('nav-bar');
+    const headerRect = header.getBoundingClientRect();
+    const headerBottom = headerRect.bottom;
 
-// Write your JavaScript code.
+    if (window.scrollY > headerBottom) {
+        navBar.style.backgroundColor = '#000000';
+    } else {
+        navBar.style.backgroundColor = 'transparent'; 
+    }
+}
+
+// Attach the function to the scroll event
+if (window.location.pathname == '/') {
+    window.addEventListener('scroll', changeNavBarBackground);
+} else {
+    document.getElementById('nav-bar').style.backgroundColor = 'black';
+    document.querySelector('body').style.paddingTop = document.getElementById('nav-bar').offsetHeight.toString() + 'px';
+}

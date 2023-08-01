@@ -1,0 +1,17 @@
+<div class="row d-flex justify-content-center align-items-center search-form">
+    @using (Html.BeginForm("Search", "Blog", FormMethod.Get,
+        new { id = "form" }))
+    {
+        <i class="fa fa-search"></i>
+        <input required type="text" class="form-control form-input" name="search" placeholder="type something...">
+    }
+</div>
+
+<script>
+	document.querySelector(".fa-search").addEventListener("click", function (event) {
+		let form = document.getElementById("form");
+
+		if (form.elements.search.value == 0) return;
+		form.submit();
+	});
+</script>

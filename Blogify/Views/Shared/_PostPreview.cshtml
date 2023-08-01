@@ -1,0 +1,29 @@
+@using lib.Extentions
+@model PostViewModel
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="custom-card">
+            <div class="row">
+                @if (!Model.IsEven)
+                {
+                    <div class="col-4">
+                        <img src="/pic.jpg" alt="Image">
+                    </div>
+                }
+                <div class="card-text col">
+                    <h1 class="pb-1">@Model.Post.Title</h1>
+                    <p>@Model.Post.Text.Cut(250)</p>
+                    <a href="#" class="btn btn-primary">Перейти</a>
+                </div>
+                @if (Model.IsEven)
+                {
+                    <div class="col-4">
+                        <img src="/pic.jpg" alt="Image">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

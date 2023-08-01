@@ -6,4 +6,42 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\lib.Blog\lib.Blog.csproj" />
+      <ProjectReference Include="..\lib.Extentions\lib.Extentions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\fonts\finlandica\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="wwwroot\fonts\Disket-Mono\Disket-Mono-Regular.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\COPYRIGHT.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\LICENSE.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-Black.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-Bold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-ExtraBold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-ExtraLight.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-Light.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-Medium.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-Regular.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-SemiBold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-Thin.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\Murecho-VariableFont_wght.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\Murecho\OFL.txt" />
+    </ItemGroup>
+
 </Project>

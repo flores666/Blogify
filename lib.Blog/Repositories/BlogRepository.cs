@@ -1,14 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyBlog;
-using MyBlogLibrary.DataAccess;
-using MyBlogLibrary.Interfaces;
-using MyBlogLibrary.Objects;
+﻿using lib.Blog.DataAccess;
+using lib.Blog.Interfaces;
+using lib.Blog.Objects;
+using lib.Extentions;
+using Microsoft.EntityFrameworkCore;
 
-namespace MyBlogLibrary.Repositories
+namespace lib.Blog.Repositories
 {
     public class BlogRepository : IBlogRepository
     {
-        public IList<Post> ShowLatestPosts(int pageNum, int pageSize)
+
+        /// <param name="pageNum">Starts from 0</param>
+        public List<Post> GetLatestPosts(int pageNum, int pageSize)
         {
             using (var db = new BlogContext())
             {
@@ -22,18 +24,17 @@ namespace MyBlogLibrary.Repositories
             }
         }
 
-        public int NumberTotalPosts()
+        public int CountTotalPosts()
         {
             using (var db = new BlogContext())
             {
-                return db.Posts
-                    .Where(p => p.Published)
-                    .Count();
+                return db.Posts.Count(p => p.Published == true);
             }
         }
 
-        public IList<Post> ShowLatestPostsForTag(int pageNum, int pageSize, string tagSlug)
+        public List<Post> GetLatestPostsForTag(int pageNum, int pageSize, string tag)
         {
+            var tagSlug = tag.GenerateSlug();
             using (var db = new BlogContext())
             {
                 return db.Posts
@@ -46,17 +47,7 @@ namespace MyBlogLibrary.Repositories
             }
         }
 
-        public int NumberTotalPostsForTag(string tagSlug)
-        {
-            using (var db = new BlogContext())
-            {
-                return db.Posts
-                    .Where(p => p.Published && p.Tags.Any(t => t.UrlSlug.Contains(tagSlug)))
-                    .Count();
-            }
-        }
-
-        public IList<Post> ShowLatestPostsForSearch(int pageNum, int pageSize, string search)
+        public List<Post> GetLatestPostsForSearch(int pageNum, int pageSize, string search)
         {
             var slug = search.GenerateSlug();
             using (var db = new BlogContext())
@@ -73,25 +64,11 @@ namespace MyBlogLibrary.Repositories
             }
         }
 
-        public int NumberTotalPostsForSearch(string search)
-        {
-            var slug = search.GenerateSlug();
-            using (var db = new BlogContext())
-            {
-                return db.Posts
-                    .Where(p => p.Published && p.Tags.Any(t => t.UrlSlug.Contains(slug)) ||
-                                                p.Title.Contains(search) ||
-                                                p.Text.Contains(search))
-                    .Count();
-            }
-        }
-
-        public Post ShowSinglePost(int id)
+        public Post ShowPost(int id)
         {
             using (var db = new BlogContext())
             {
-                return db.Posts
-                    .Where(p => p.Id == id).FirstOrDefault();
+                return db.Posts.FirstOrDefault(p => p.Id == id);
             }
         }
     }

@@ -1,0 +1,66 @@
+@model FeedViewModel
+
+@{
+    var postsCount = Model.Posts.Count;
+    var currentPage = Model.CurrentPage;
+}
+
+<link rel="stylesheet" href="/css/feed.css">
+
+<script>
+    function loadMorePosts(pageNumber) {
+        $.ajax({
+            url: '/Blog/LoadMorePosts',
+            type: 'POST',
+            data: { pageNumber: pageNumber },
+            dataType: 'json',
+            success: function (data) {
+                if (data && data.length > 0) {
+                    data.forEach(function (post, index) {
+    
+                        let object = {
+                            IsEven: index % 2 == 0,
+                            Post: {
+                                id: post.id,
+                                title: post.title,
+                                text: post.text,
+                                urlSlug: post.urlSlug,
+                                published: post.published,
+                                postedOn: post.postedOn,
+                                modified: post.modified
+                            }
+                        }
+                        
+                        $.ajax({
+                            url: '/Blog/RenderAdditionalPost',
+                            type: 'POST',
+                            data: object,
+                            success: function (partialView) {
+                                $('.feed').append(partialView);
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    }
+        
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                loadMorePosts(@(++currentPage));
+            }
+        });
+</script>
+
+<div class="container">
+    @Html.Partial("_SearchTemplate")
+    <div class="feed">
+        @if (Model != null && postsCount != 0)
+        {
+            for (int i = 0; i < postsCount; i++)
+            {
+                Html.RenderPartial("_PostPreview", new PostViewModel (Model.Posts[i], i % 2 == 0));
+            }
+        }
+    </div>
+</div>

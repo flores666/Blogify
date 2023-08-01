@@ -1,10 +1,8 @@
-﻿using MyBlogLibrary;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace MyBlog
+namespace lib.Extentions
 {
     public static class StringExtentions
     {
@@ -42,10 +40,9 @@ namespace MyBlog
             return new string(chars).Normalize(NormalizationForm.FormC);
         }
 
-		public static string CreateShortDesc(this string text)
+		public static string Cut(this string text, int length)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
-            var length = 500;
             return text.Substring(0, Math.Min(text.Length, length));
         }
 

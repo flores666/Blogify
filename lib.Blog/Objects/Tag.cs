@@ -1,29 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
-namespace MyBlogLibrary.Objects
+namespace lib.Blog.Objects
 {
 	public class Tag
 	{
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = "This field is required")]
-		[MaxLength(100)]
-		[Column(TypeName = "varchar(100)")]
+		[Column(TypeName = "varchar(20)")]
 		public string Name { get; set; }
 
 		[Required]
-		[MaxLength(100)]
-		[Column(TypeName = "varchar(100)")]
+		[Column(TypeName = "varchar(30)")]
 		public string UrlSlug { get; set; }
-
-		public virtual ICollection<Post> Posts { get; } = new List<Post>();
-
-        public Tag() { }
-        public Tag(string name, string slug)
-        {
-			Name = name;
-			UrlSlug = slug;
-        }
-    }
+		
+		[JsonIgnore]
+		public ICollection<Post> Posts { get; } = new List<Post>();
+	}
 }

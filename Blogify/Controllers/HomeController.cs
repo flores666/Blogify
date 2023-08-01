@@ -15,14 +15,10 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewBag.IsHomePage = true;
         return View();
     }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
