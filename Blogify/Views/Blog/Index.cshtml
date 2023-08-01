@@ -1,66 +1,53 @@
-@model FeedViewModel
+@model List<lib.Blog.Objects.Post>
 
 @{
-    var postsCount = Model.Posts.Count;
-    var currentPage = Model.CurrentPage;
+    var query = ViewBag.Query ?? null;
 }
 
 <link rel="stylesheet" href="/css/feed.css">
 
 <script>
-    function loadMorePosts(pageNumber) {
+    function loadPosts(pageNumber) {
+        let displayedPosts = [];
         $.ajax({
-            url: '/Blog/LoadMorePosts',
+            url: '/Blog/GetPostsAsJSON',
             type: 'POST',
             data: { pageNumber: pageNumber },
             dataType: 'json',
             success: function (data) {
                 if (data && data.length > 0) {
-                    data.forEach(function (post, index) {
-    
-                        let object = {
-                            IsEven: index % 2 == 0,
-                            Post: {
-                                id: post.id,
-                                title: post.title,
-                                text: post.text,
-                                urlSlug: post.urlSlug,
-                                published: post.published,
-                                postedOn: post.postedOn,
-                                modified: post.modified
-                            }
+                    let posts = [];
+                    data.forEach(function (post) {
+                        if (!displayedPosts.includes(post.id)) {
+                            posts.push(post);
+                            displayedPosts.push(post.id); 
                         }
-                        
-                        $.ajax({
-                            url: '/Blog/RenderAdditionalPost',
-                            type: 'POST',
-                            data: object,
-                            success: function (partialView) {
-                                $('.feed').append(partialView);
-                            }
-                        });
+                    });
+                    
+                    $.ajax({
+                        url: '/Blog/DrawPosts',
+                        type: 'POST',
+                        data: { posts : posts },
+                        success: function (partialView) {
+                            $('.feed').append(partialView);
+                        }
                     });
                 }
             }
         });
     }
-        
+       let curPage = 0; 
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                loadMorePosts(@(++currentPage));
+                curPage++;
+                loadPosts(curPage);
             }
         });
 </script>
 
 <div class="container">
     @Html.Partial("_SearchTemplate")
-    <div class="feed">
-        @if (Model != null && postsCount != 0)
-        {
-            for (int i = 0; i < postsCount; i++)
-            {
-                Html.RenderPartial("_PostPreview", new PostViewModel (Model.Posts[i], i % 2 == 0));
-            }
-        }
+    <div class="feed mb-4">
+        @Html.Partial("_FeedPartial", Model)
     </div>
 </div>

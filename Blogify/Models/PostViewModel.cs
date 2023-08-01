@@ -4,13 +4,13 @@ namespace Blogify.Models;
 
 public class PostViewModel
 {
-    public bool IsEven { get; set; }
+    public int Index { get; set; }
     public Post Post { get; set; }
 
-    public PostViewModel(Post post, bool isEven)
+    public PostViewModel(Post post, int index)
     {
         Post = post;
-        IsEven = isEven;
+        Index = index;
     }
 
     public PostViewModel() { }

@@ -1,0 +1,13 @@
+@model List<lib.Blog.Objects.Post>
+
+@{
+    var postsCount = Model.Count;
+}
+
+@if (Model != null && postsCount != 0)
+{
+    for (int i = 0; i < postsCount; i++)
+    {
+        Html.RenderPartial("_PostPreview", new PostViewModel(Model[i], i));
+    }
+}
