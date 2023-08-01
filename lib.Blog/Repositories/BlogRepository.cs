@@ -68,7 +68,8 @@ namespace lib.Blog.Repositories
         {
             using (var db = new BlogContext())
             {
-                return db.Posts.FirstOrDefault(p => p.Id == id);
+                var a = db.Posts.FirstOrDefault(p => p.Id == id);
+                return a;
             }
         }
     }

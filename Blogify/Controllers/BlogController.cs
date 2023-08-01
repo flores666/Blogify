@@ -17,42 +17,30 @@ public class BlogController : Controller
         _logger = logger;
         _db = repository;
     }
-
-    public IActionResult Index()
+    
+    public IActionResult Index(int pageNumber = 0)
     {
-        var model = _db.GetLatestPosts(0, _pageSize);
+        var model = _db.GetLatestPosts(pageNumber, _pageSize);
         ViewData["Title"] = "Лента";
-        return View(model);
+        ViewData["PageNum"] = pageNumber;
+        return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View(model);
     }
 
-    public IActionResult Search(string search, int pageNum = 0)
+    public IActionResult Search(string query, int pageNumber = 0)
     {
-        var model = _db.GetLatestPostsForSearch(pageNum, _pageSize, search);
-        ViewData["Title"] = $"Лента - запрос по поиску {search}";
-        ViewBag.Query = search;
-        return View("Index", model);
-    }
-
-    [HttpPost]
-    public JsonResult GetPostsAsJSON(int pageNumber)
-    {
-        var posts = _db.GetLatestPosts(pageNumber, _pageSize);
-        return Json(posts);
-    }
-
-    [HttpPost]
-    public JsonResult GetPostsToSearch(int pageNumber, string query)
-    {
-        var posts = _db.GetLatestPostsForSearch(pageNumber, _pageSize, query);
-        return Json(posts);
-    }
-
-    [HttpPost]
-    public PartialViewResult DrawPosts(List<Post> posts)
-    {
-        return PartialView("_FeedPartial", posts);
+        var model = _db.GetLatestPostsForSearch(pageNumber, _pageSize, query);
+        ViewData["Title"] = $"Лента - запрос по поиску {query}";
+        ViewBag.Query = query;
+        ViewData["PageNum"] = pageNumber;
+        return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View("Index", model);
     }
     
+    public PartialViewResult Post(int id)
+    {
+        var post = _db.ShowPost(id);
+        return PartialView("_PostPartial", post);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

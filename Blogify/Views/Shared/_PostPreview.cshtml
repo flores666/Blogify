@@ -1,6 +1,29 @@
 @using lib.Extentions
 @model PostViewModel
 
+<script>
+$(document).ready(function () {
+    $(document).on("click", ".post-show-btn", function () { 
+        var postId = $(this).data("post-id");
+        $.ajax({
+            url: "/Blog/Post",
+            type: "POST",
+            data: { id: postId },
+            success: function (partialView) {
+                if (partialView != null)
+                    $(".modal").empty().append(partialView).show();
+            }
+        });
+        $(document).on("click", function (event) {
+            var modalContent = $(".modal-content");
+            if (!modalContent.is(event.target) && modalContent.has(event.target).length === 0) {
+                $(".modal").hide();
+            }
+        });
+    });
+});
+</script>
+
 @if (Model != null)
 {
     <div class="row">
@@ -15,7 +38,7 @@
                 <div class="card-text col">
                     <h1 class="pb-1">@Model.Post.Title</h1>
                     <p>@Model.Post.Text.Cut(250)</p>
-                    <a href="#" class="btn btn-primary">Перейти</a>
+                    <a class="btn btn-primary post-show-btn" data-post-id="@Model.Post.Id">Читать дальше</a>
                 </div>
                 @if (Model.Index % 2 == 0)
                 {

@@ -2,45 +2,32 @@
 
 @{
     var query = ViewBag.Query ?? null;
+    var pageNum = (int)ViewData["PageNum"];
 }
 
 <link rel="stylesheet" href="/css/feed.css">
 
 <script>
     function loadPosts(pageNumber) {
-        let displayedPosts = [];
-        $.ajax({
-            url: '/Blog/GetPostsAsJSON',
-            type: 'POST',
-            data: { pageNumber: pageNumber },
-            dataType: 'json',
-            success: function (data) {
-                if (data && data.length > 0) {
-                    let posts = [];
-                    data.forEach(function (post) {
-                        if (!displayedPosts.includes(post.id)) {
-                            posts.push(post);
-                            displayedPosts.push(post.id); 
-                        }
-                    });
-                    
-                    $.ajax({
-                        url: '/Blog/DrawPosts',
-                        type: 'POST',
-                        data: { posts : posts },
-                        success: function (partialView) {
-                            $('.feed').append(partialView);
-                        }
-                    });
+        let data = { pageNumber : pageNumber };
+        let query = '@(query ?? "")';
+        if (query != '') data.query = query;
+        
+            $.ajax({
+                url: '/Blog/@(query == null ? "Index" : "Search")',
+                type: 'POST',
+                data: data,
+                success: function (partialView) {
+                    if (partialView != null)
+                    $('.feed').append(partialView);
                 }
-            }
-        });
-    }
-       let curPage = 0; 
+            });
+        }
+        
+        let pageNum = @pageNum;
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                curPage++;
-                loadPosts(curPage);
+                loadPosts(++pageNum);
             }
         });
 </script>
