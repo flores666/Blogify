@@ -3,21 +3,20 @@
 
 <script>
 $(document).ready(function () {
-    $(document).on("click", ".post-show-btn", function () { 
-        var postId = $(this).data("post-id");
+    $(document).on("click", ".post-show-btn-@Model.Post.Id", function () { 
         $.ajax({
             url: "/Blog/Post",
             type: "POST",
-            data: { id: postId },
+            data: { id: @Model.Post.Id },
             success: function (partialView) {
                 if (partialView != null)
-                    $(".modal").empty().append(partialView).show();
+                    $(".modal").append(partialView).show();
             }
         });
         $(document).on("click", function (event) {
             var modalContent = $(".modal-content");
             if (!modalContent.is(event.target) && modalContent.has(event.target).length === 0) {
-                $(".modal").hide();
+                $(".modal").empty().hide();
             }
         });
     });
@@ -37,8 +36,8 @@ $(document).ready(function () {
                 }
                 <div class="card-text col">
                     <h1 class="pb-1">@Model.Post.Title</h1>
-                    <p>@Model.Post.Text.Cut(250)</p>
-                    <a class="btn btn-primary post-show-btn" data-post-id="@Model.Post.Id">Читать дальше</a>
+                    <p>@Model.Post.Text.CutDescription(250)</p>
+                    <a class="btn btn-primary bg-dark border-0 post-show-btn-@Model.Post.Id">Читать дальше</a>
                 </div>
                 @if (Model.Index % 2 == 0)
                 {

@@ -23,18 +23,30 @@ public class BlogController : Controller
         var model = _db.GetLatestPosts(pageNumber, _pageSize);
         ViewData["Title"] = "Лента";
         ViewData["PageNum"] = pageNumber;
-        return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View(model);
+        return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View();
     }
 
-    public IActionResult Search(string query, int pageNumber = 0)
+    public IActionResult Search(string query, string? tag = null, int pageNumber = 0)
     {
-        var model = _db.GetLatestPostsForSearch(pageNumber, _pageSize, query);
-        ViewData["Title"] = $"Лента - запрос по поиску {query}";
-        ViewBag.Query = query;
+        var model = new List<Post>();
+        if (!string.IsNullOrEmpty(query))
+        {
+            model = _db.GetLatestPostsForSearch(pageNumber, _pageSize, query);
+            ViewData["Title"] = $"Лента - запрос по поиску {query}";
+            ViewBag.Query = query;
+        }
+        
+        if (!string.IsNullOrEmpty(tag))
+        {
+            model = _db.GetLatestPostsForTag(pageNumber, _pageSize, tag);
+            ViewData["Title"] = $"Лента - запрос по тегу {tag}";
+            ViewBag.Tag = tag;
+        }
+        
         ViewData["PageNum"] = pageNumber;
         return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View("Index", model);
     }
-    
+
     public PartialViewResult Post(int id)
     {
         var post = _db.ShowPost(id);

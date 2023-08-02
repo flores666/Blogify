@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var isHomePage = ViewBag.isHomePage ?? false;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -12,6 +16,10 @@
 </head>
 
 <nav id="nav-bar">
+    @if (!isHomePage)
+    {
+        <a asp-controller="Home" asp-action="Index" class="mini-logo">BLOGIFY</a>
+    }
     <a asp-controller="Blog" asp-action="Index">Лента</a>
     <a href="#">Создать</a>
     <a href="#">Профиль</a>

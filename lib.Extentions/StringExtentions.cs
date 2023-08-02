@@ -40,10 +40,11 @@ namespace lib.Extentions
             return new string(chars).Normalize(NormalizationForm.FormC);
         }
 
-		public static string Cut(this string text, int length)
+		public static string CutDescription(this string text, int length)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
-            return text.Substring(0, Math.Min(text.Length, length));
+            var result = text.Substring(0, Math.Min(text.Length, length));
+            return text.Length > length ? result + "..." : result;
         }
 
         public static string DeleteFirstSpace(this string text)

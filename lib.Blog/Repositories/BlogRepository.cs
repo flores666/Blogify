@@ -34,11 +34,10 @@ namespace lib.Blog.Repositories
 
         public List<Post> GetLatestPostsForTag(int pageNum, int pageSize, string tag)
         {
-            var tagSlug = tag.GenerateSlug();
             using (var db = new BlogContext())
             {
                 return db.Posts
-                    .Where(p => p.Published && p.Tags.Any(t => t.UrlSlug.Contains(tagSlug)))
+                    .Where(p => p.Published && p.Tags.Any(t => t.Name == tag))
                     .OrderByDescending(p => p.PostedOn)
                     .Skip(pageNum * pageSize)
                     .Take(pageSize)
@@ -49,11 +48,10 @@ namespace lib.Blog.Repositories
 
         public List<Post> GetLatestPostsForSearch(int pageNum, int pageSize, string search)
         {
-            var slug = search.GenerateSlug();
             using (var db = new BlogContext())
             {
                 return db.Posts
-                    .Where(p => p.Published && p.Tags.Any(t => t.UrlSlug.Contains(slug)) ||
+                    .Where(p => p.Published && p.Tags.Any(t => t.Name == search) ||
                                                 p.Title.Contains(search) ||
                                                 p.Text.Contains(search))
                     .OrderByDescending(p => p.PostedOn)
@@ -68,7 +66,7 @@ namespace lib.Blog.Repositories
         {
             using (var db = new BlogContext())
             {
-                var a = db.Posts.FirstOrDefault(p => p.Id == id);
+                var a = db.Posts.Where(p =>p.Id == id).Include(p => p.Tags).FirstOrDefault();
                 return a;
             }
         }

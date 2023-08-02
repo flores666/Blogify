@@ -36,6 +36,7 @@ nav {
   text-align: end;
   padding-right: 1.5em;
   z-index: 999;
+  max-height: 3.5em;
 }
 
 nav a {
@@ -63,6 +64,14 @@ nav a:hover:before {
 }
 
 nav a:hover {
+  color: white;
+}
+
+.mini-logo {
+  position: fixed;
+  font-size: 2em; 
+  left: 0.5em;
+  top: 4px;
   color: white;
 }
 
@@ -155,4 +164,8 @@ nav a:hover {
 
 .search-form {
   margin-top: 1em;
+}
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+  text-decoration: inherit;
 }

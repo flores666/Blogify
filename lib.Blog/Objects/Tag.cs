@@ -16,7 +16,6 @@ namespace lib.Blog.Objects
 		[Column(TypeName = "varchar(30)")]
 		public string UrlSlug { get; set; }
 		
-		[JsonIgnore]
 		public ICollection<Post> Posts { get; } = new List<Post>();
 	}
 }

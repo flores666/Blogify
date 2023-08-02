@@ -2,6 +2,7 @@
 
 @{
     var query = ViewBag.Query ?? null;
+    var tag = ViewBag.Tag ?? null;
     var pageNum = (int)ViewData["PageNum"];
 }
 
@@ -11,10 +12,12 @@
     function loadPosts(pageNumber) {
         let data = { pageNumber : pageNumber };
         let query = '@(query ?? "")';
+        let tag = '@(tag ?? "")';
         if (query != '') data.query = query;
+        if (tag != '') data.tag = tag;
         
             $.ajax({
-                url: '/Blog/@(query == null ? "Index" : "Search")',
+                url: '/Blog/@(query == null && tag == null ? "Index" : "Search")',
                 type: 'POST',
                 data: data,
                 success: function (partialView) {
@@ -25,6 +28,7 @@
         }
         
         let pageNum = @pageNum;
+        loadPosts(pageNum);
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                 loadPosts(++pageNum);
@@ -32,9 +36,14 @@
         });
 </script>
 
+<div class="modal"></div>
+
 <div class="container">
     @Html.Partial("_SearchTemplate")
     <div class="feed mb-4">
-        @Html.Partial("_FeedPartial", Model)
+        @if (Model != null)
+        {
+            @Html.Partial("_FeedPartial", Model)
+        }
     </div>
 </div>

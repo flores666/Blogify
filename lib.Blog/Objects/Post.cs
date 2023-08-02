@@ -32,7 +32,6 @@ namespace lib.Blog.Objects
 		[DisplayName("Modified on")]
 		public DateTime? Modified { get; set; }
 
-		[JsonIgnore]
 		public ICollection<Tag> Tags { get; } = new List<Tag>();
 	}
 }

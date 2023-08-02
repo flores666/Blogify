@@ -2,7 +2,45 @@
 
 @if (Model != null)
 {
-    <div class="modal-content">
-        @Model.Title
+    <div class="modal-content container">
+        <div class="row">
+            <h2 class="modal-title col-10">
+                @Model.Title
+            </h2>
+            <div class="modal-profile col">
+                <p>Model.User.Name</p>
+            </div>
+            <p class="modal-modified text-muted">@(Model.Modified != null ? "(ред.)" : "")</p>
+        </div>
+        <div class="modal-text">
+            <p>@Model.Text</p>
+        </div>
+        <div class="modal-footer pb-0 row">
+            <div class="modal-tags mb-0 col">
+                <i class="fa fa-tag mb-0"></i>
+                @if (Model.Tags.Count != 0)
+                {
+                    var tags = string.Join(", ", Model.Tags.Select(t => t.Name)).Split(" ");
+                    foreach (var tag in tags)
+                    {
+                        @Html.ActionLink(tag + " ",
+                            "Search",
+                            "Blog",
+                            new
+                            {
+                                query = string.Empty,
+                                tag = tag
+                            },
+                            new
+                            {
+                                @class = "mb-0 link-unstyled text-muted"
+                            })
+                    }
+                }
+            </div>
+            <div class="modal-postedOn mb-0 col">
+                <p class="mb-0 text-muted">Опубликовано: @Model.PostedOn</p>
+            </div>
+        </div>
     </div>
 }
