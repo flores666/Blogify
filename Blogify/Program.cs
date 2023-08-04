@@ -1,7 +1,10 @@
+using Blogify.Identity.DataAccess;
+using Blogify.Identity.Objects;
 using lib.Blog;
 using lib.Blog.DataAccess;
 using lib.Blog.Interfaces;
 using lib.Blog.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +17,17 @@ builder.Services.AddDbContext<BlogContext>(options =>
     options.UseNpgsql(Data.CONN_STRING);
 });
 
+builder.Services.AddDbContext<UserContext>(options =>
+{
+    options.UseNpgsql(Data.USERS_CONN_STRING);
+});
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<UserContext>();
+
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<BlogifyUserManager>();
+builder.Services.AddScoped<BlogifySignInManager>();
 
 var app = builder.Build();
 

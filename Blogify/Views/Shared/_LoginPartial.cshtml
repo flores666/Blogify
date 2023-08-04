@@ -1,0 +1,12 @@
+@if (SignInManager.IsSignedIn(User))
+{
+    <a id="manage" title="Manage" asp-controller="User" asp-action="Index">@UserManager.GetUserName(User)</a>
+    <form id="logoutForm" class="form-inline" asp-route-returnUrl="@Url.Action("Index", "Home")">
+        <button id="logout" type="submit" class="nav-link btn btn-link border-0" asp-controller="Autorization" asp-action="Logout">Выйти</button>
+    </form>
+}
+else
+{
+    <a id="register" asp-controller="Autorization" asp-action="Register">Регистрация</a>
+    <a id="login" asp-controller="Autorization" asp-action="Login">Вход</a>
+}
