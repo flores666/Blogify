@@ -169,3 +169,13 @@ nav a:hover {
 .link-unstyled, .link-unstyled:link, .link-unstyled:hover {
   text-decoration: inherit;
 }
+
+.scroll-top {
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  width: 3em;
+  height: 3em;
+  border-radius: 8px;
+  border: 0;
+}

@@ -18,3 +18,7 @@ if (window.location.pathname == '/') {
     document.getElementById('nav-bar').style.backgroundColor = 'black';
     document.querySelector('body').style.paddingTop = document.getElementById('nav-bar').offsetHeight.toString() + 'px';
 }
+
+$(".scroll-top").on("click", function() {
+    $(window).scrollTop(0);
+});
