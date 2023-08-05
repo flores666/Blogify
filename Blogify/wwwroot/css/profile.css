@@ -1,0 +1,137 @@
+.profile {
+    padding: 0em 0 1em;
+    height: 100%;
+    width: 100%;
+}
+
+.profile-pic-big {
+    display: flex;
+    margin: 3em 0 0 1em;
+    max-width: 25em;
+}
+
+.profile-pic-big img {
+    width: 25em;
+    object-fit: contain;
+    border: 6px solid white;
+    border-radius: 15px;
+    z-index: 99;
+}
+
+.profile-header {
+    margin: 0;
+    height: 22em;
+    background-color: rgba(50, 34, 85, 0.2);
+}
+
+.profile-edit {
+    position: relative;
+}
+
+.edit-icon {
+    position: absolute;
+    right: 0;
+    margin: 0.5em 1em;
+    padding: 0 1em 0.35em 1em;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 8px;
+    background-color:rgba(0, 0, 0, 0.26);
+}
+
+.edit-icon svg {
+    padding: 0;
+    margin: 0;
+}
+
+.profile-edit .edit-icon {
+    display: none;
+}
+
+.profile-header:hover .edit-icon {
+    display: block;
+    animation: appear 0.3s forwards;
+}
+
+.profile-pic-big:hover+.profile-edit .edit-icon {
+    display: none;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.edit-pic-container {
+    margin: 1em 1em 1em 0;
+    z-index: 999;
+    display: none;
+}
+
+.edit-pic {
+    margin-left: 1em;
+    background-color:rgba(0, 0, 0, 0.26);
+    border-radius: 8px;
+}
+
+.edit-pic ul {
+    font-size: 16px;
+    list-style-type: none;
+    padding: 0.6em 0.6em 0.6em 0.6em;
+}
+
+.edit-pic a {
+    color: white;
+}
+
+.profile-pic-big:hover .edit-pic-container {
+    display: block;
+    animation: appear 0.3s forwards;
+}
+
+.profile-pic-big:hover+.edit-pic-container .edit-pic {
+    display: block;
+}
+
+.profile-edit-container {
+    height: 7em;
+    position: relative;
+    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.profile-edit-container button {
+    position: absolute;
+    right: 0;
+    margin: 1em 2em;
+
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-name {
+    position: absolute;
+    padding: 0.7em 0 0 29em;
+}
+
+.profile-name h2, p {
+    padding: 0;
+    margin: 0;
+}
+
+.profile-body h1 {
+    padding: 1rem 0 1rem 2rem;
+}
+
+.profile-body p {
+    margin: 0 2rem 1rem 2rem;
+}
+
+.description {
+    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2);
+    padding-bottom: 1em;
+    margin-top: 0;
+}

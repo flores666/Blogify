@@ -7,6 +7,7 @@ namespace Blogify.Identity.DataAccess;
 
 public class UserContext : IdentityDbContext<User>
 {
+    public UserContext() { }
     public UserContext(DbContextOptions<UserContext> options)
         : base(options)
     {

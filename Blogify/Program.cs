@@ -1,5 +1,7 @@
 using Blogify.Identity.DataAccess;
+using Blogify.Identity.Interfaces;
 using Blogify.Identity.Objects;
+using Blogify.Identity.Repositories;
 using lib.Blog;
 using lib.Blog.DataAccess;
 using lib.Blog.Interfaces;
@@ -26,6 +28,7 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
     .AddEntityFrameworkStores<UserContext>();
 
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<BlogifyUserManager>();
 builder.Services.AddScoped<BlogifySignInManager>();
 

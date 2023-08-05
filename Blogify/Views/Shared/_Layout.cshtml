@@ -21,7 +21,7 @@
         <a asp-controller="Home" asp-action="Index" class="mini-logo">BLOGIFY</a>
     }
     <a asp-controller="Blog" asp-action="Index">Лента</a>
-    <a href="#">Создать</a>
+    <a asp-controller="User" asp-action="CreatePost">Создать</a>
     @Html.Partial("_LoginPartial")
 </nav>
 <button class="scroll-top bg-dark"><i class="fa fa-angle-up" aria-hidden="true" style="color: #ffffff;"></i></button>
