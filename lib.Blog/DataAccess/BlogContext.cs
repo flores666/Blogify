@@ -14,7 +14,7 @@ namespace lib.Blog.DataAccess
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseNpgsql(Data.CONN_STRING)
+			optionsBuilder.UseNpgsql(Data.CONN_STRING_MAIN)
 				.UseSnakeCaseNamingConvention();
 		}
 	}

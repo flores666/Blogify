@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace lib.Blog.Objects
 {
+	[Table("tags")]
 	public class Tag
 	{
 		public int Id { get; set; }

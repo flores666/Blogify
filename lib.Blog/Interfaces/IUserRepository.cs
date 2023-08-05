@@ -1,6 +1,6 @@
-using Blogify.Identity.Objects;
+using lib.Blog.Objects;
 
-namespace Blogify.Identity.Interfaces;
+namespace lib.Blog.Interfaces;
 
 public interface IUserRepository
 {

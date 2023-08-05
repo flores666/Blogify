@@ -1,8 +1,8 @@
-using Blogify.Identity.DataAccess;
-using Blogify.Identity.Interfaces;
-using Blogify.Identity.Objects;
+using lib.Blog.DataAccess;
+using lib.Blog.Interfaces;
+using lib.Blog.Objects;
 
-namespace Blogify.Identity.Repositories;
+namespace lib.Blog.Repositories;
 
 public class UserRepository : IUserRepository
 {

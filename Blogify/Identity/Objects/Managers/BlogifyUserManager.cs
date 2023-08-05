@@ -1,3 +1,4 @@
+using lib.Blog.Objects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 

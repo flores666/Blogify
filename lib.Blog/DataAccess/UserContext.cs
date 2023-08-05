@@ -1,9 +1,8 @@
-using Blogify.Identity.Objects;
-using lib.Blog;
+using lib.Blog.Objects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Blogify.Identity.DataAccess;
+namespace lib.Blog.DataAccess;
 
 public class UserContext : IdentityDbContext<User>
 {
@@ -16,6 +15,6 @@ public class UserContext : IdentityDbContext<User>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql(Data.USERS_CONN_STRING).UseSnakeCaseNamingConvention(); 
+        optionsBuilder.UseNpgsql(Data.CONN_STRING_MAIN).UseSnakeCaseNamingConvention(); 
     }
 }

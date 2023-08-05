@@ -1,7 +1,7 @@
 using Blogify.Identity.Objects;
 using Blogify.Models;
+using lib.Blog.Objects;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

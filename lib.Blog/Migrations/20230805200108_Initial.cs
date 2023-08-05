@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Blogify.Identity.Migrations
+namespace lib.Blog.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -31,6 +31,10 @@ namespace Blogify.Identity.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false),
+                    first_name = table.Column<string>(type: "text", nullable: false),
+                    second_name = table.Column<string>(type: "text", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: true),
                     user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -49,6 +53,25 @@ namespace Blogify.Identity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_asp_net_users", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_asp_net_users_asp_net_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tags",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "varchar(20)", nullable: false),
+                    url_slug = table.Column<string>(type: "varchar(30)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_tags", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,6 +180,55 @@ namespace Blogify.Identity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "posts",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "varchar(100)", nullable: false),
+                    text = table.Column<string>(type: "text", nullable: false),
+                    url_slug = table.Column<string>(type: "varchar(120)", nullable: false),
+                    published = table.Column<bool>(type: "boolean", nullable: false),
+                    posted_on = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    user_id = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_posts", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_posts_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "post_tag",
+                columns: table => new
+                {
+                    posts_id = table.Column<int>(type: "integer", nullable: false),
+                    tags_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_post_tag", x => new { x.posts_id, x.tags_id });
+                    table.ForeignKey(
+                        name: "fk_post_tag_posts_posts_id",
+                        column: x => x.posts_id,
+                        principalTable: "posts",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_post_tag_tags_tags_id",
+                        column: x => x.tags_id,
+                        principalTable: "tags",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_asp_net_role_claims_role_id",
                 table: "AspNetRoleClaims",
@@ -189,10 +261,25 @@ namespace Blogify.Identity.Migrations
                 column: "normalized_email");
 
             migrationBuilder.CreateIndex(
+                name: "ix_asp_net_users_user_id",
+                table: "AspNetUsers",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "normalized_user_name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_post_tag_tags_id",
+                table: "post_tag",
+                column: "tags_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_posts_user_id",
+                table: "posts",
+                column: "user_id");
         }
 
         /// <inheritdoc />
@@ -214,7 +301,16 @@ namespace Blogify.Identity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "post_tag");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "posts");
+
+            migrationBuilder.DropTable(
+                name: "tags");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

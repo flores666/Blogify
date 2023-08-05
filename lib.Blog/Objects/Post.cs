@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace lib.Blog.Objects
 {
+	[Table("posts")]
 	public class Post
 	{
 		public int Id { get; set; }
@@ -33,5 +34,8 @@ namespace lib.Blog.Objects
 		public DateTime? Modified { get; set; }
 
 		public ICollection<Tag> Tags { get; } = new List<Tag>();
+		
+		[Required(ErrorMessage = "Укажите автора")]
+		public User User { get; set; }
 	}
 }

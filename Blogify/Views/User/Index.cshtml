@@ -1,4 +1,5 @@
-@model User
+@model lib.Blog.Objects.User
+
 @{
     ViewData["Title"] = "Профиль";
 }
@@ -27,7 +28,7 @@
             </div>
             <div class="profile-edit-container">
                 <div class="profile-name">
-                    <h2>Name</h2>
+                    <h2>@Model.UserName</h2>
                     <p>status</p>
                 </div>
                 <button class="btn btn-primary bg-dark border-0">Редактировать профиль</button>   
