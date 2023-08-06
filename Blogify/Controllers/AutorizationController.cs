@@ -12,10 +12,10 @@ public class AutorizationController : Controller
     private readonly BlogifySignInManager _signInManager;
     private readonly BlogifyUserManager _userManager;
     private readonly ILogger<AutorizationController> _logger;
-    private readonly IUserStore<User> _userStore;
+    private readonly IUserStore<AppUser> _userStore;
 
     public AutorizationController(BlogifySignInManager signInManager, BlogifyUserManager userManager,
-        ILogger<AutorizationController> logger, IUserStore<User> userStore)
+        ILogger<AutorizationController> logger, IUserStore<AppUser> userStore)
     {
         _signInManager = signInManager;
         _userManager = userManager;
@@ -95,11 +95,11 @@ public class AutorizationController : Controller
         }
     }
     
-    private User CreateUser()
+    private AppUser CreateUser()
     {
         try
         {
-            return Activator.CreateInstance<User>();
+            return Activator.CreateInstance<AppUser>();
         }
         catch
         {

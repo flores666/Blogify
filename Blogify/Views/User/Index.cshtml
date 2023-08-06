@@ -1,10 +1,11 @@
-@model lib.Blog.Objects.User
+@model lib.Blog.Objects.AppUser
 
 @{
     ViewData["Title"] = "Профиль";
 }
 
 <link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="/css/feed.css">
 
 <div class="container pt-4">
         <div class="profile c-border overflow-hidden">
@@ -40,6 +41,14 @@
                 </div>
                 <div class="profile-posts">
                     <h1>Публикации</h1>
+                    @if (Model.Posts.Count != 0)
+                    {
+                        @Html.Partial("_FeedPartial", Model.Posts.ToList())
+                    }
+                    else
+                    {
+                        <p>Пусто</p>
+                    }
                 </div>
             </div>
         </div>

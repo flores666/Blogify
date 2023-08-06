@@ -4,5 +4,6 @@ namespace lib.Blog.Interfaces;
 
 public interface IUserRepository
 {
-    public User GetUser(string id);
+    public AppUser GetUser(string id);
+    public void SavePost(Post post);
 }

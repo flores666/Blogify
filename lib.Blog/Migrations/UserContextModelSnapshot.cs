@@ -209,82 +209,7 @@ namespace lib.Blog.Migrations
                     b.ToTable("post_tag", (string)null);
                 });
 
-            modelBuilder.Entity("lib.Blog.Objects.Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("modified");
-
-                    b.Property<DateTime>("PostedOn")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("posted_on");
-
-                    b.Property<bool>("Published")
-                        .HasColumnType("boolean")
-                        .HasColumnName("published");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("title");
-
-                    b.Property<string>("UrlSlug")
-                        .IsRequired()
-                        .HasColumnType("varchar(120)")
-                        .HasColumnName("url_slug");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_posts");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_posts_user_id");
-
-                    b.ToTable("posts", (string)null);
-                });
-
-            modelBuilder.Entity("lib.Blog.Objects.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("UrlSlug")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("url_slug");
-
-                    b.HasKey("Id")
-                        .HasName("pk_tags");
-
-                    b.ToTable("tags", (string)null);
-                });
-
-            modelBuilder.Entity("lib.Blog.Objects.User", b =>
+            modelBuilder.Entity("lib.Blog.Objects.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -293,6 +218,10 @@ namespace lib.Blog.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer")
                         .HasColumnName("access_failed_count");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text")
+                        .HasColumnName("app_user_id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -358,10 +287,6 @@ namespace lib.Blog.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("two_factor_enabled");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnName("user_id");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
@@ -370,6 +295,9 @@ namespace lib.Blog.Migrations
                     b.HasKey("Id")
                         .HasName("pk_asp_net_users");
 
+                    b.HasIndex("AppUserId")
+                        .HasDatabaseName("ix_asp_net_users_app_user_id");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -377,10 +305,82 @@ namespace lib.Blog.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_asp_net_users_user_id");
-
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("lib.Blog.Objects.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("app_user_id");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("modified");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("posted_on");
+
+                    b.Property<bool>("Published")
+                        .HasColumnType("boolean")
+                        .HasColumnName("published");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("title");
+
+                    b.Property<string>("UrlSlug")
+                        .IsRequired()
+                        .HasColumnType("varchar(120)")
+                        .HasColumnName("url_slug");
+
+                    b.HasKey("Id")
+                        .HasName("pk_posts");
+
+                    b.HasIndex("AppUserId")
+                        .HasDatabaseName("ix_posts_app_user_id");
+
+                    b.ToTable("posts", (string)null);
+                });
+
+            modelBuilder.Entity("lib.Blog.Objects.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("UrlSlug")
+                        .IsRequired()
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("url_slug");
+
+                    b.HasKey("Id")
+                        .HasName("pk_tags");
+
+                    b.ToTable("tags", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -395,7 +395,7 @@ namespace lib.Blog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("lib.Blog.Objects.User", null)
+                    b.HasOne("lib.Blog.Objects.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -405,7 +405,7 @@ namespace lib.Blog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("lib.Blog.Objects.User", null)
+                    b.HasOne("lib.Blog.Objects.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -422,7 +422,7 @@ namespace lib.Blog.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_roles_asp_net_roles_role_id");
 
-                    b.HasOne("lib.Blog.Objects.User", null)
+                    b.HasOne("lib.Blog.Objects.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -432,7 +432,7 @@ namespace lib.Blog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("lib.Blog.Objects.User", null)
+                    b.HasOne("lib.Blog.Objects.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -457,27 +457,27 @@ namespace lib.Blog.Migrations
                         .HasConstraintName("fk_post_tag_tags_tags_id");
                 });
 
+            modelBuilder.Entity("lib.Blog.Objects.AppUser", b =>
+                {
+                    b.HasOne("lib.Blog.Objects.AppUser", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("AppUserId")
+                        .HasConstraintName("fk_asp_net_users_asp_net_users_app_user_id");
+                });
+
             modelBuilder.Entity("lib.Blog.Objects.Post", b =>
                 {
-                    b.HasOne("lib.Blog.Objects.User", "User")
+                    b.HasOne("lib.Blog.Objects.AppUser", "AppUser")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_posts_users_user_id");
+                        .HasConstraintName("fk_posts_users_app_user_id");
 
-                    b.Navigation("User");
+                    b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("lib.Blog.Objects.User", b =>
-                {
-                    b.HasOne("lib.Blog.Objects.User", null)
-                        .WithMany("Friends")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("fk_asp_net_users_asp_net_users_user_id");
-                });
-
-            modelBuilder.Entity("lib.Blog.Objects.User", b =>
+            modelBuilder.Entity("lib.Blog.Objects.AppUser", b =>
                 {
                     b.Navigation("Friends");
 

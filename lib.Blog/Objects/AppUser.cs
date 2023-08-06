@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace lib.Blog.Objects;
 
-public class User : IdentityUser
+[Table("AspNetUsers")]
+public class AppUser : IdentityUser
 {
     [Column(TypeName = "text")]
     [DisplayName("Описание")]
@@ -20,7 +21,7 @@ public class User : IdentityUser
     public string? SecondName { get; set; }
 
     [DisplayName("Друзья")]
-    public ICollection<User> Friends { get; set; } = new List<User>();
+    public ICollection<AppUser> Friends { get; set; } = new List<AppUser>();
     
     [DisplayName("Публикации")]
     public ICollection<Post> Posts { get; set; } = new List<Post>();

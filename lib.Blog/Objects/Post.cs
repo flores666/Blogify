@@ -33,9 +33,9 @@ namespace lib.Blog.Objects
 		[DisplayName("Modified on")]
 		public DateTime? Modified { get; set; }
 
-		public ICollection<Tag> Tags { get; } = new List<Tag>();
-		
+		public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+
 		[Required(ErrorMessage = "Укажите автора")]
-		public User User { get; set; }
+		public AppUser AppUser { get; set; }
 	}
 }

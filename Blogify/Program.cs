@@ -21,7 +21,7 @@ builder.Services.AddDbContext<UserContext>(options =>
     options.UseNpgsql(Data.CONN_STRING);
 });
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<UserContext>();
 
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();

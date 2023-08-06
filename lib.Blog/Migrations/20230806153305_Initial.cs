@@ -31,10 +31,10 @@ namespace lib.Blog.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "text", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false),
-                    first_name = table.Column<string>(type: "text", nullable: false),
-                    second_name = table.Column<string>(type: "text", nullable: false),
-                    user_id = table.Column<string>(type: "text", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    first_name = table.Column<string>(type: "text", nullable: true),
+                    second_name = table.Column<string>(type: "text", nullable: true),
+                    app_user_id = table.Column<string>(type: "text", nullable: true),
                     user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -54,8 +54,8 @@ namespace lib.Blog.Migrations
                 {
                     table.PrimaryKey("pk_asp_net_users", x => x.id);
                     table.ForeignKey(
-                        name: "fk_asp_net_users_asp_net_users_user_id",
-                        column: x => x.user_id,
+                        name: "fk_asp_net_users_asp_net_users_app_user_id",
+                        column: x => x.app_user_id,
                         principalTable: "AspNetUsers",
                         principalColumn: "id");
                 });
@@ -192,14 +192,14 @@ namespace lib.Blog.Migrations
                     published = table.Column<bool>(type: "boolean", nullable: false),
                     posted_on = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    user_id = table.Column<string>(type: "text", nullable: false)
+                    app_user_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_posts", x => x.id);
                     table.ForeignKey(
-                        name: "fk_posts_users_user_id",
-                        column: x => x.user_id,
+                        name: "fk_posts_users_app_user_id",
+                        column: x => x.app_user_id,
                         principalTable: "AspNetUsers",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -261,9 +261,9 @@ namespace lib.Blog.Migrations
                 column: "normalized_email");
 
             migrationBuilder.CreateIndex(
-                name: "ix_asp_net_users_user_id",
+                name: "ix_asp_net_users_app_user_id",
                 table: "AspNetUsers",
-                column: "user_id");
+                column: "app_user_id");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -277,9 +277,9 @@ namespace lib.Blog.Migrations
                 column: "tags_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_posts_user_id",
+                name: "ix_posts_app_user_id",
                 table: "posts",
-                column: "user_id");
+                column: "app_user_id");
         }
 
         /// <inheritdoc />

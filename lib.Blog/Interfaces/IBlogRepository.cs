@@ -9,5 +9,6 @@ namespace lib.Blog.Interfaces
         public List<Post> GetLatestPostsForTag(int pageNum, int pageSize, string tagSlug);
         public List<Post> GetLatestPostsForSearch(int pageNum, int pageSize, string search);
         public Post ShowPost(int id);
+        public void SavePost(Post post);
     }
 }
