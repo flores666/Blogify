@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace lib.Blog.Objects
 {
-	[Table("posts")]
+	[Table("posts", Schema = "blog")]
 	public class Post
 	{
 		public int Id { get; set; }

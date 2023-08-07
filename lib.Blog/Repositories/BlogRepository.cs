@@ -7,7 +7,12 @@ namespace lib.Blog.Repositories
 {
     public class BlogRepository : IBlogRepository
     {
-        private UserContext _db { get; set; } = new UserContext();
+        private IContext _db;
+
+        public BlogRepository(IContext context)
+        {
+            _db = context;
+        }
 
         /// <param name="pageNum">Starts from 0</param>
         public List<Post> GetLatestPosts(int pageNum, int pageSize)

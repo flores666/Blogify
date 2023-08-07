@@ -50,7 +50,7 @@ public class UserController : Controller
             if (user != null)
             {
                 post.AppUser = user;
-                _userRepository.SavePost(post);
+                _blogRepository.SavePost(post);
                 return View("Index", user);
             }
         }

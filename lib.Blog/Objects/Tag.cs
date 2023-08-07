@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace lib.Blog.Objects
 {
-	[Table("tags")]
+	[Table("tags", Schema = "blog")]
 	public class Tag
 	{
 		public int Id { get; set; }

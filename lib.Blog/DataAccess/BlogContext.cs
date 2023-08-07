@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lib.Blog.DataAccess
 {
+	[Obsolete]
 	public class BlogContext : DbContext
 	{
 		public DbSet<Post> Posts { get; set; }

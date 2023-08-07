@@ -19,7 +19,6 @@
 .modal {
     display: none; 
     position: fixed;
-    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
@@ -35,6 +34,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    z-index: 999;
 }
 
 .modal-modified {
@@ -43,4 +43,8 @@
 
 .modal-postedOn {
     text-align: end;
+}
+
+#show-full-post {
+    margin-top:1em;
 }

@@ -7,7 +7,6 @@ namespace Blogify.Models;
 
 public class PostInputModel
 {
-    [Required(ErrorMessage = "This field is required")]
     [DisplayName("Заголовок")]
     public string Title { get; set; }
 

@@ -16,14 +16,15 @@ builder.Services.AddDbContext<BlogContext>(options =>
     options.UseNpgsql(Data.CONN_STRING);
 });
 
-builder.Services.AddDbContext<UserContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(Data.CONN_STRING);
 });
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<UserContext>();
+    .AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.AddScoped<IContext, AppDbContext>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<BlogifyUserManager>();

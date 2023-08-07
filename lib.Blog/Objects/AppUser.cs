@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace lib.Blog.Objects;
 
-[Table("AspNetUsers")]
+[Table("app_users")]
 public class AppUser : IdentityUser
 {
     [Column(TypeName = "text")]
