@@ -1,7 +1,7 @@
 @model lib.Blog.Objects.AppUser
 
 @{
-    ViewData["Title"] = "Профиль";
+    ViewData["Title"] = Model.UserName;
 }
 
 <link rel="stylesheet" href="/css/profile.css">
@@ -35,19 +35,29 @@
         </div>
         <div class="profile-edit-container">
             <div class="profile-name">
-                <h2>@Model.UserName</h2>
-                <p>status</p>
+                @if (!string.IsNullOrEmpty(Model.FirstName) || !string.IsNullOrEmpty(Model.SecondName))
+                {
+                    <h2>@(Model.FirstName?.ToString() + " " + Model.SecondName?.ToString()) </h2>
+                }
+                else
+                {
+                    <h2>@Model.UserName</h2>
+                }
+                <p>@(Model.Status ?? "")</p>
             </div>
             <button class="btn btn-primary bg-dark border-0">Редактировать профиль</button>
         </div>
         <div class="profile-body">
             <div class="description">
-                <h1 class="header-padding">Описание</h1>
-                <p class="text-margin">Добро пожаловать в мир вдохновения и знаний! Мой блог - это источник непередаваемой энергии и полезной информации. Здесь мы исследуем глубокие мысли о жизни, искусстве, науке и технологиях. Размышления на страницах блога раскроют перед вами удивительные горизонты познания, помогая лучше понять себя и мир вокруг. Вас ждут увлекательные статьи о саморазвитии, путешествиях, культуре и новейших тенденциях. Присоединяйтесь к нашему сообществу мыслителей и вдохновителей, чтобы вместе путешествовать в мир бесконечных возможностей!</p>
+                @if (Model.Description != null)
+                {
+                    <h1 class="header-padding">О себе</h1>
+                    <p class="text-margin">@Model.Description</p>
+                }
             </div>
-            <h1 class="header-padding">Публикации</h1>
         </div>
     </div>
+    <h1 class="text-center pt-4 pb-3">Публикации</h1>
     <div class="profile-posts">
         @if (Model.Posts.Count != 0)
         {
@@ -55,7 +65,7 @@
         }
         else
         {
-            <p class="text-margin">Пусто</p>
+            <p class="text-margin text-center">Пусто</p>
         }
     </div>
 </div>

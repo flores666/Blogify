@@ -10,9 +10,8 @@ namespace lib.Blog.Objects
 	{
 		public int Id { get; set; }
 
-		[Required(ErrorMessage = "This field is required")]
 		[Column(TypeName = "varchar(100)")]
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		[Required(ErrorMessage = "This field is required")]
 		[Column(TypeName = "text")]
@@ -33,7 +32,7 @@ namespace lib.Blog.Objects
 		[DisplayName("Modified on")]
 		public DateTime? Modified { get; set; }
 
-		public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+		public ICollection<Tag>? Tags { get; set; } = new List<Tag>();
 
 		[Required(ErrorMessage = "Укажите автора")]
 		public AppUser AppUser { get; set; }

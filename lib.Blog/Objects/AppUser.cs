@@ -19,6 +19,10 @@ public class AppUser : IdentityUser
     [DataType("varchar(25)")]
     [DisplayName("Фамилия")]
     public string? SecondName { get; set; }
+    
+    [DataType("varchar(40)")]
+    [DisplayName("Статус")]
+    public string? Status { get; set; }
 
     [DisplayName("Друзья")]
     public ICollection<AppUser> Friends { get; set; } = new List<AppUser>();

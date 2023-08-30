@@ -60,7 +60,7 @@ namespace lib.Blog.Repositories
 
         public Post ShowPost(int id)
         {
-            return _db.Posts.Where(p => p.Id == id).Include(p => p.Tags).FirstOrDefault();
+            return _db.Posts.Where(p => p.Id == id).Include(p => p.Tags).Include(p => p.AppUser).FirstOrDefault();
         }
 
         public void SavePost(Post post)

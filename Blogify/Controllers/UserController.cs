@@ -24,9 +24,9 @@ public class UserController : Controller
     }
 
     [Authorize]
-    public IActionResult Index(string id)
+    public IActionResult Index(string name)
     {
-        var user = _userRepository.GetUser(id);
+        var user = _userRepository.GetUserByName(name);
         return View(user);
     }
 
@@ -45,7 +45,7 @@ public class UserController : Controller
             var post = model.CreatePost();
             var userId = _userManager.GetUserId(HttpContext.User);
 
-            var user = _userRepository.GetUser(userId);
+            var user = _userRepository.GetUserById(userId);
             
             if (user != null)
             {
@@ -56,5 +56,13 @@ public class UserController : Controller
         }
 
         return View();
+    }
+
+    [HttpPost]
+    public IActionResult SetDescription(string value)
+    {
+        var name = _userManager.GetUserName(HttpContext.User);
+        _userRepository.SetDescription(name, value);
+        return RedirectToAction("Index", "User",new { name = name });
     }
 }

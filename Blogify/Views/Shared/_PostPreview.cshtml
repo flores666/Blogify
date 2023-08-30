@@ -35,9 +35,9 @@ $(document).ready(function () {
                     </div>
                 }
                 <div class="card-text col">
-                    <h1 class="pb-1">@Model.Post.Title</h1>
-                    <p>@Model.Post.Text.CutDescription(250)</p>
-                    <a id="show-full-post" class="btn btn-primary bg-dark border-0 post-show-btn-@Model.Post.Id">Читать дальше</a>
+                    <h1 class="pb-1">@(Model.Post.Title ?? "")</h1>
+                    <p class="m-0 p-0">@Model.Post.Text.CutDescription(250)</p>
+                    <a href="#openModal" id="show-full-post" class="btn btn-primary bg-dark border-0 post-show-btn-@Model.Post.Id">Читать дальше</a>
                 </div>
                 @if (Model.Index % 2 == 0)
                 {

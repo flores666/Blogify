@@ -22,3 +22,8 @@ if (window.location.pathname == '/') {
 $(".scroll-top").on("click", function() {
     $(window).scrollTop(0);
 });
+
+function adjustTextareaHeight(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`; 
+}

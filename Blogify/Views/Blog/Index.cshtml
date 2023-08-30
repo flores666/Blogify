@@ -10,10 +10,8 @@
 
 <script>
     function loadPosts(pageNumber) {
-        let data = { pageNumber : pageNumber };
-        let query = '@(query ?? "")';
+        let data = { pageNumber : pageNumber, query : '@(query ?? "")'};
         let tag = '@(tag ?? "")';
-        if (query != '') data.query = query;
         if (tag != '') data.tag = tag;
         
             $.ajax({
@@ -21,6 +19,7 @@
                 type: 'POST',
                 data: data,
                 success: function (partialView) {
+                    console.log("ajax");
                     if (partialView != null)
                     $('.feed').append(partialView);
                 }
@@ -38,7 +37,7 @@
 
 <div class="container">
     @Html.Partial("_SearchTemplate")
-    <div class="feed mb-4">
+    <div class="feed mt-1">
         @if (Model != null)
         {
             @Html.Partial("_FeedPartial", Model)

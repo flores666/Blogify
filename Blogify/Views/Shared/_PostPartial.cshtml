@@ -2,45 +2,57 @@
 
 @if (Model != null)
 {
-    <div class="modal-content container">
-        <div class="row">
-            <h2 class="modal-title col-10">
-                @Model.Title
-            </h2>
-            <div class="modal-profile col">
-                <p>Model.User.Name</p>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-sm-between">
+                    <h3>@Model.Title</h3>
+                </div>
+                <p class="text-muted p-0 m-0">@(Model.Modified != null ? "(ред.)" : "")</p>
             </div>
-            <p class="modal-modified text-muted">@(Model.Modified != null ? "(ред.)" : "")</p>
-        </div>
-        <div class="modal-text">
-            <p>@Model.Text</p>
-        </div>
-        <div class="modal-footer pb-0 row">
-            <div class="modal-tags mb-0 col">
-                <i class="fa fa-tag mb-0"></i>
-                @if (Model.Tags.Count != 0)
-                {
-                    var tags = string.Join(", ", Model.Tags.Select(t => t.Name)).Split(" ");
-                    foreach (var tag in tags)
+            <div class="modal-body">
+                @Model.Text
+            </div>
+            <div class="d-flex">
+                <div class="modal-tags mb-0 col">
+                    @if (Model.Tags.Count != 0)
                     {
-                        @Html.ActionLink(tag + " ",
-                            "Search",
-                            "Blog",
-                            new
-                            {
-                                query = string.Empty,
-                                tag = tag.Trim(',')
-                            },
-                            new
-                            {
-                                @class = "mb-0 link-unstyled text-muted"
-                            })
+                        <i class="fa fa-tag mb-0"></i>
+                        var tags = string.Join(", ", Model.Tags.Select(t => t.Name)).Split(", ");
+                        foreach (var tag in tags)
+                        {
+                            @Html.ActionLink(tag + ", ",
+                                "Search",
+                                "Blog",
+                                new
+                                {
+                                    query = string.Empty,
+                                    tag = tag.Trim(',')
+                                },
+                                new
+                                {
+                                    @class = "mb-0 link-unstyled text-muted"
+                                })
+                        }
                     }
-                }
-            </div>
-            <div class="modal-postedOn mb-0 col">
-                <p class="mb-0 text-muted">Опубликовано: @Model.PostedOn</p>
+                </div>
+                <p class="mb-0 pe-2 text-muted">Опубликовано: @Model.PostedOn</p>
             </div>
         </div>
     </div>
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+      console.log(scrollbar);
+      document.querySelector('[href="#openModal"]').addEventListener('click', function () {
+        document.body.style.overflow = 'hidden';
+        document.querySelector('#openModal').style.marginLeft = scrollbar;
+      });
+      document.querySelector('[href="#close"]').addEventListener('click', function () {
+        document.body.style.overflow = 'visible';
+        document.querySelector('#openModal').style.marginLeft = '0px';
+      });
+    });
+  </script>

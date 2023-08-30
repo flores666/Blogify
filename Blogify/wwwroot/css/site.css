@@ -1,10 +1,10 @@
 html {
-  font-size: 22px;
   margin: 0;
   padding: 0;
 }
 
 body {
+  font-size: 16px;
   font-family: "Finlandica-Regular";
 }
 
@@ -127,6 +127,7 @@ nav a:hover {
 /*Search bar */
 #form{
   position: relative;
+  margin:1em 0 1em 0;
 }
 
 #form .fa-search{
@@ -163,10 +164,6 @@ nav a:hover {
 .form-input:focus{
   box-shadow: none;
   border:none;
-}
-
-.search-form {
-  margin-top: 1em;
 }
 
 .link-unstyled, .link-unstyled:link, .link-unstyled:hover {

@@ -8,13 +8,15 @@ namespace Blogify.Models;
 public class PostInputModel
 {
     [DisplayName("Заголовок")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [Required(ErrorMessage = "This field is required")]
     [DisplayName("Содержание поста")]
     public string Text { get; set; }
-
-    public List<string>? Tags { get; set; }
+    
+    [DisplayName("Теги")]
+    [MaxLengthForEach(20, ErrorMessage = "Each tag must be up to 20 characters long.")]
+    public List<string>? Tags { get; set; } = new List<string>();
 
     public Post CreatePost()
     {
@@ -25,11 +27,11 @@ public class PostInputModel
             UrlSlug = Title.GenerateSlug(),
             PostedOn = DateTime.Now.ToUniversalTime(),
             Published = true,
-            Tags =  this.Tags.Select(n => new Tag()
+            Tags = this.Tags.Select(n => new Tag()
             {
                 Name = n,
                 UrlSlug = n.GenerateSlug()
-            }).ToList()
+            }).Where(t => t.Name != null).ToList()
         };
     }
 }

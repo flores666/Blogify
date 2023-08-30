@@ -36,7 +36,7 @@
     font-size: 20px;
     text-align: center;
     border-radius: 8px;
-    background-color:rgba(0, 0, 0, 0.26);
+    background-color: rgba(0, 0, 0, 0.26);
 }
 
 .edit-icon svg {
@@ -53,7 +53,7 @@
     animation: appear 0.3s forwards;
 }
 
-.profile-pic-big:hover+.profile-edit .edit-icon {
+.profile-pic-big:hover + .profile-edit .edit-icon {
     display: none;
 }
 
@@ -75,7 +75,7 @@
 
 .edit-pic {
     margin-left: 1em;
-    background-color:rgba(0, 0, 0, 0.26);
+    background-color: rgba(0, 0, 0, 0.26);
     border-radius: 8px;
 }
 
@@ -94,7 +94,7 @@
     animation: appear 0.3s forwards;
 }
 
-.profile-pic-big:hover+.edit-pic-container .edit-pic {
+.profile-pic-big:hover + .edit-pic-container .edit-pic {
     display: block;
 }
 
@@ -128,10 +128,4 @@
 
 .text-margin {
     margin: 0 2rem 1rem 2rem;
-}
-
-.description {
-    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2);
-    padding-bottom: 1em;
-    margin-top: 0;
 }
