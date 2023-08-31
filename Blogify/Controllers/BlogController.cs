@@ -10,7 +10,7 @@ public class BlogController : Controller
 {
     private readonly ILogger<BlogController> _logger;
     private readonly IBlogRepository _db;
-    private int _pageSize = 10;
+    private const int _pageSize = 10;
 
     public BlogController(ILogger<BlogController> logger, IBlogRepository repository)
     {
@@ -23,7 +23,7 @@ public class BlogController : Controller
         var model = _db.GetLatestPosts(pageNumber, _pageSize);
         ViewData["Title"] = "Лента";
         ViewData["PageNum"] = pageNumber;
-        return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View();
+        return Request.IsAjaxRequest() ? PartialView("_FeedPartial", model) : View(model);
     }
 
     public IActionResult Search(string query, string? tag = null, int pageNumber = 0)

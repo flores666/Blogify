@@ -48,24 +48,21 @@
             <button class="btn btn-primary bg-dark border-0">Редактировать профиль</button>
         </div>
         <div class="profile-body">
-            <div class="description">
-                @if (Model.Description != null)
-                {
-                    <h1 class="header-padding">О себе</h1>
-                    <p class="text-margin">@Model.Description</p>
-                }
-            </div>
+            @if (Model.Description != null)
+            {
+                <h1 class="header-padding">О себе</h1>
+                <p class="text-margin">@Model.Description</p>
+            }
         </div>
     </div>
-    <h1 class="text-center pt-4 pb-3">Публикации</h1>
-    <div class="profile-posts">
+    <div class="profile-posts pt-3">
         @if (Model.Posts.Count != 0)
         {
             @Html.Partial("_FeedPartial", Model.Posts.ToList())
         }
         else
         {
-            <p class="text-margin text-center">Пусто</p>
+            <p class="text-margin text-center">На стене пока нет ни одной записи</p>
         }
     </div>
 </div>

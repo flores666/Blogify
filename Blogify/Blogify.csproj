@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\lib.Blog\lib.Blog.csproj" />
-      <ProjectReference Include="..\lib.Extentions\lib.Extentions.csproj" />
+      <ProjectReference Include="..\lib.Extensions\lib.Extensions.csproj" />
     </ItemGroup>
 
     <ItemGroup>

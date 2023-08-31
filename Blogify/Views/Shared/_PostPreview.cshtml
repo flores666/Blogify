@@ -1,5 +1,9 @@
-@using lib.Extentions
+@using lib.Extensions
 @model PostViewModel
+
+@{
+    int descriptionLength = 500;
+}
 
 <script>
 $(document).ready(function () {
@@ -25,27 +29,28 @@ $(document).ready(function () {
 
 @if (Model != null)
 {
-    <div class="row">
-        <div class="custom-card c-border">
-            <div class="row">
-                @if (Model.Index % 2 != 0)
-                {
-                    <div class="col-4">
-                        <img src="/pic.jpg" alt="Image">
-                    </div>
-                }
-                <div class="card-text col">
-                    <h1 class="pb-1">@(Model.Post.Title ?? "")</h1>
-                    <p class="m-0 p-0">@Model.Post.Text.CutDescription(250)</p>
-                    <a href="#openModal" id="show-full-post" class="btn btn-primary bg-dark border-0 post-show-btn-@Model.Post.Id">Читать дальше</a>
+    <div class="custom-card c-border">
+        <div class="row">
+            @if (Model.Index % 2 != 0)
+            {
+                <div class="col-4">
+                    <img src="/pic.jpg" alt="Image">
                 </div>
-                @if (Model.Index % 2 == 0)
+            }
+            <div class="card-text col">
+                <h1 class="pb-1">@(Model.Post.Title ?? "")</h1>
+                <p class="m-0 p-0">@Model.Post.Text.CutDescription(descriptionLength)</p>
+                @if (Model.Post.Text.Length > descriptionLength)
                 {
-                    <div class="col-4">
-                        <img src="/pic.jpg" alt="Image">
-                    </div>
+                    <a href="#openModal" id="show-full-post" class="btn btn-primary bg-dark border-0 post-show-btn-@Model.Post.Id">Читать дальше</a>
                 }
             </div>
+            @if (Model.Index % 2 == 0)
+            {
+                <div class="col-4">
+                    <img src="/pic.jpg" alt="Image">
+                </div>
+            }
         </div>
     </div>
 }

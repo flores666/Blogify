@@ -8,36 +8,40 @@
     #tagInputs input {
         max-width: 5em;
     }
+    .container {
+        width: 50em;
+    }
 </style>
 
 <div class="container">
     <h1 class="text-center pt-4">Создание публикации</h1>
-    <form asp-action="CreatePost" asp-controller="User" method="post">
+    @using (Html.BeginForm("CreatePost", "User", FormMethod.Post))
+    {
         <div class="form-group pb-2">
             <label asp-for="Title" class="control-label"></label>
-            <input asp-for="Title" class="form-control"/>
             <span asp-validation-for="Title" class="text-danger"></span>
+            <input asp-for="Title" class="form-control"/>
         </div>
 
         <div class="form-group pb-2">
             <label asp-for="Text" class="control-label"></label>
-            <textarea id="dynamicInput" asp-for="Text" class="form-control"></textarea>
             <span asp-validation-for="Text" class="text-danger"></span>
+            <textarea id="dynamicInput" asp-for="Text" class="form-control"></textarea>
         </div>
 
         <div class="form-group pb-3">
             <label asp-for="Tags" class="control-label"></label>
+            <span asp-validation-for="Tags" class="text-danger"></span>
             <div id="tagInputs" class="d-flex">
                 <input asp-for="Tags[0]" class="form-control me-2"/>
-                <button type="button" id="addTagButton" class="btn btn-primary bg-dark">Add Tag</button>
-                <span asp-validation-for="Tags" class="text-danger"></span>
+                <button type="button" id="addTagButton" class="btn bg-white">+</button>
             </div>
         </div>
 
         <div class="form-group">
             <input type="submit" value="Создать" class="btn btn-primary bg-dark"/>
         </div>
-    </form>
+    }
 </div>
 
 

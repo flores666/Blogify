@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogify", "Blogify\Blogify.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib.Blog", "lib.Blog\lib.Blog.csproj", "{BFCDB05F-1B16-4F38-ABD7-2767263CD47F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib.Extentions", "lib.Extentions\lib.Extentions.csproj", "{2A3A615C-76CB-455A-AF30-AFE70F5B13E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib.Extensions", "lib.Extensions\lib.Extensions.csproj", "{2A3A615C-76CB-455A-AF30-AFE70F5B13E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

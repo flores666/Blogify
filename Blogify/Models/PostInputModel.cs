@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using lib.Blog.Objects;
-using lib.Extentions;
+using lib.Extensions;
 
 namespace Blogify.Models;
 
@@ -15,7 +15,7 @@ public class PostInputModel
     public string Text { get; set; }
     
     [DisplayName("Теги")]
-    [MaxLengthForEach(20, ErrorMessage = "Each tag must be up to 20 characters long.")]
+    [TagValidation(20,  @"[^\p{L}\p{N}]", ErrorMessage = "Invalid tag name")]
     public List<string>? Tags { get; set; } = new List<string>();
 
     public Post CreatePost()

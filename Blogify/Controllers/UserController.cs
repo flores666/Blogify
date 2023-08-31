@@ -27,6 +27,7 @@ public class UserController : Controller
     public IActionResult Index(string name)
     {
         var user = _userRepository.GetUserByName(name);
+        if (user == null) return NotFound();
         return View(user);
     }
 
@@ -38,7 +39,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePost(PostInputModel model)
+    public IActionResult CreatePost(PostInputModel model)
     {
         if (ModelState.IsValid)
         {
@@ -51,18 +52,10 @@ public class UserController : Controller
             {
                 post.AppUser = user;
                 _blogRepository.SavePost(post);
-                return View("Index", user);
+                return RedirectToAction("Index", "User", new { name = user.UserName });
             }
         }
 
         return View();
-    }
-
-    [HttpPost]
-    public IActionResult SetDescription(string value)
-    {
-        var name = _userManager.GetUserName(HttpContext.User);
-        _userRepository.SetDescription(name, value);
-        return RedirectToAction("Index", "User",new { name = name });
     }
 }

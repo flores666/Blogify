@@ -1,7 +1,7 @@
 ﻿
 using System.Text;
 
-namespace lib.Extentions
+namespace lib.Extensions
 {
 	public static class Transliteration
 	{

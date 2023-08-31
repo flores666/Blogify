@@ -18,10 +18,10 @@
                     @if (Model.Tags.Count != 0)
                     {
                         <i class="fa fa-tag mb-0"></i>
-                        var tags = string.Join(", ", Model.Tags.Select(t => t.Name)).Split(", ");
+                        var tags = string.Join(", ", Model.Tags.Select(t => t.Name)).Split(' ');
                         foreach (var tag in tags)
                         {
-                            @Html.ActionLink(tag + ", ",
+                            @Html.ActionLink(tag + ' ',
                                 "Search",
                                 "Blog",
                                 new
@@ -36,7 +36,7 @@
                         }
                     }
                 </div>
-                <p class="mb-0 pe-2 text-muted">Опубликовано: @Model.PostedOn</p>
+                <p class="mb-0 pe-2 text-muted">Опубликовано: @Model.PostedOn.ToLocalTime()</p>
             </div>
         </div>
     </div>
