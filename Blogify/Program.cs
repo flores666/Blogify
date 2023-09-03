@@ -26,7 +26,6 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
 
 builder.Services.AddScoped<IContext, AppDbContext>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<BlogifyUserManager>();
 builder.Services.AddScoped<BlogifySignInManager>();
 

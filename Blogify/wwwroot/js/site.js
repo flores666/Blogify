@@ -27,3 +27,11 @@ function adjustTextareaHeight(textarea) {
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`; 
 }
+
+const inputs = document.querySelectorAll('#dynamicInput');
+
+inputs.forEach((input) => {
+    input.addEventListener('input', () => {
+        adjustTextareaHeight(input);
+    });
+});

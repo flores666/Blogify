@@ -42,7 +42,7 @@ $(document).ready(function () {
                 <p class="m-0 p-0">@Model.Post.Text.CutDescription(descriptionLength)</p>
                 @if (Model.Post.Text.Length > descriptionLength)
                 {
-                    <a href="#openModal" id="show-full-post" class="btn btn-primary bg-dark border-0 post-show-btn-@Model.Post.Id">Читать дальше</a>
+                    <a href="#openModal" id="show-full-post" class="btn border-0 btn-secondary submit-btn bg-dark post-show-btn-@Model.Post.Id">Читать дальше</a>
                 }
             </div>
             @if (Model.Index % 2 == 0)
