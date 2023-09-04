@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Blogify.Identity.Objects;
 using Blogify.Models;
 using lib.Blog.DataAccess;
@@ -67,25 +68,29 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditProfile(UserInputModel model)
+    public async Task<IActionResult> EditProfile(UserInputModel model)
     {
         if (ModelState.IsValid)
         {
-            var user = _userManager.GetUserAsync(HttpContext.User).Result;
-            
-            var updatedUserData = new AppUser()
-            {
-                Id = user.Id,
-                UserName = model.UserName,
-                FirstName = model.FirstName,
-                SecondName = model.SecondName,
-                Status = model.Status,
-                Description = model.Description
-            };
-            
-            ViewBag.isSaved = _userManager.UpdateProfile(updatedUserData).Result;
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            await _userManager.SetUserNameAsync(user, model.UserName);
+            user.FirstName = model.FirstName;
+            user.SecondName = model.SecondName;
+            user.Status = model.Status;
+            user.Description = model.Description;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded) ViewBag.isSaved = true;
         }
 
-        return View();
+        return View(model);
+    }
+
+    public async Task<IActionResult> GetUserDetailsJson()
+    {
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        var userName = user.UserName;
+        return Json(new {name = userName, link = Url.ActionLink("Index", "User", new {name = userName})});
     }
 }

@@ -25,27 +25,6 @@ public class BlogifyUserManager : UserManager<AppUser>, IUserManager
         _db = context;
     }
 
-    public async Task<bool> UpdateProfile(AppUser userData)
-    {
-        var user = await FindByIdAsync(userData.Id);
-        if (user != null)
-        {
-            var result = await SetUserNameAsync(user, userData.UserName);
-            if (result.Succeeded) 
-            {
-                user.FirstName = userData.FirstName;
-                user.SecondName = userData.SecondName;
-                user.Status = userData.Status;
-                user.Description = userData.Description;
-                
-                result = await UpdateAsync(user);
-                if (result.Succeeded) return true;
-            }
-        }
-
-        return false;
-    }
-
     public AppUser GetUserByName(string name)
     {
         return _db.Users.Where(u => u.UserName == name)
