@@ -35,5 +35,3 @@ inputs.forEach((input) => {
         adjustTextareaHeight(input);
     });
 });
-
-

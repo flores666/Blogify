@@ -17,6 +17,7 @@ public class TagValidationAttribute : ValidationAttribute
 
     public override bool IsValid(object value)
     {
-        return value is IEnumerable<string> tags && tags.All(tag => tag.Length <= _maxLength && !Regex.IsMatch(tag, _pattern));
+        if (value is not IEnumerable<string> tags || tags.All(n => n == null)) return true;
+        return tags.All(tag => tag.Length <= _maxLength && !Regex.IsMatch(tag, _pattern));
     }
 }

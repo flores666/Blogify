@@ -68,6 +68,17 @@ namespace lib.Blog.Repositories
             _db.Posts.Add(post);
             _db.SaveChanges();
         }
+        
+        public List<Post> GetUserLatestPosts(int pageNum, int pageSize, string userId)
+        {
+            return _db.Posts
+                .Where(p => p.Published && p.AppUser.Id == userId)
+                .OrderByDescending(p => p.PostedOn)
+                .Skip(pageNum * pageSize)
+                .Take(pageSize)
+                .Include(p => p.Tags)
+                .ToList();
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Blogify.Identity.Objects;
 using Blogify.Models;
+using lib.Blog;
 using lib.Blog.DataAccess;
 using lib.Blog.Interfaces;
 using lib.Blog.Objects;
@@ -49,6 +50,7 @@ public class UserController : Controller
             if (user != null)
             {
                 post.AppUser = user;
+                //to fix
                 _blogRepository.SavePost(post);
                 return RedirectToAction("Index", "User", new {name = user.UserName});
             }
@@ -92,5 +94,14 @@ public class UserController : Controller
         var user = await _userManager.GetUserAsync(HttpContext.User);
         var userName = user.UserName;
         return Json(new {name = userName, link = Url.ActionLink("Index", "User", new {name = userName})});
+    }
+
+    [HttpPost]
+    public IActionResult LoadPosts(int pageNumber = 0)
+    {
+        var userId = _userManager.GetUserId(HttpContext.User);
+        if (string.IsNullOrEmpty(userId)) return new EmptyResult();
+        var model = _blogRepository.GetUserLatestPosts(pageNumber, Data.pageSize, userId);
+        return PartialView("_FeedPartial", model);
     }
 }

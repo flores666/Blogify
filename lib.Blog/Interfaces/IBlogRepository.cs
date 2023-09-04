@@ -10,5 +10,6 @@ namespace lib.Blog.Interfaces
         public List<Post> GetLatestPostsForSearch(int pageNum, int pageSize, string search);
         public Post ShowPost(int id);
         public void SavePost(Post post);
+        public List<Post> GetUserLatestPosts(int pageNum, int pageSize, string userId);
     }
 }
