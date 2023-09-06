@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using lib.Blog.DataAccess;
 using lib.Blog.Objects;
 using Microsoft.AspNetCore.Identity;

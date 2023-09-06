@@ -29,7 +29,8 @@ public class UserController : Controller
     {
         var user = _userManager.GetUserByName(name);
         if (user == null) return NotFound();
-        return View(user);
+        var model = new UserViewModel(user.UserName, user.FirstName, user.SecondName, user.Status, user.Description);
+        return View(model);
     }
 
     [HttpGet]
@@ -45,12 +46,12 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var post = model.CreatePost();
-            var user = _userManager.GetUserAsync(HttpContext.User).Result;
+            var userName = _userManager.GetUserName(HttpContext.User);
+            var user = _userManager.GetUserByName(userName);
             
             if (user != null)
             {
                 post.AppUser = user;
-                //to fix
                 _blogRepository.SavePost(post);
                 return RedirectToAction("Index", "User", new {name = user.UserName});
             }
